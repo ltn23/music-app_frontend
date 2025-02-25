@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "../../src/styles.css"; // Import CSS
+import "../../src/styles.css"; 
+import UploadAudio from "./UploadAudio";
+import UploadImage from "./UploadImage";
 
 const AddSongForm = ({ onSongAdded }) => {
   const [title, setTitle] = useState("");
@@ -50,21 +52,29 @@ const AddSongForm = ({ onSongAdded }) => {
         required
       />
 
-      <label>Hình Ảnh Bìa</label>
-      <input
-        type="url"
-        value={coverImage}
-        onChange={(e) => setCoverImage(e.target.value)}
-        required
-      />
+      <label>Ảnh Bìa</label>
+      <UploadImage onUploadSuccess={setCoverImage} />
 
-      <label>Link Audio</label>
-      <input
-        type="url"
-        value={audioUrl}
-        onChange={(e) => setAudioUrl(e.target.value)}
-        required
-      />
+      {/* {coverImage && (
+        <p className="text-green-600 font-medium text-center mt-3">
+          🖼 Ảnh đã tải lên:{" "}
+          <a href={coverImage} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+            {coverImage}
+          </a>
+        </p>
+      )} */}
+
+      <label>File Nhạc</label>
+      <UploadAudio onUploadSuccess={setAudioUrl} />
+
+      {/* {audioUrl && (
+        <p className="text-green-600 font-medium text-center mt-3">
+          🎵 File đã tải lên:{" "}
+          <a href={audioUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+            {audioUrl}
+          </a>
+        </p>
+      )} */}
 
       <button type="submit">➕ Thêm Bài Hát</button>
     </form>
